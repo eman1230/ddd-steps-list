@@ -21,6 +21,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
+    this.index=0
     this.title = "";
     this.t = this.t || {};
     this.t = {
@@ -41,6 +42,8 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
+      index: { type: Number },
+
     };
   }
 
@@ -61,18 +64,34 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
       h3 span {
         font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
       }
+      
     `];
   }
+
+updated(changedProperties) {
+  if (changedProperties.has('title')){
+    this.indexcount();
+  }
+}
+
+indexcount() {
+  const items = this.querySelectorAll("ddd-steps-list-item");
+  items.forEach((element, index) => {
+    element.count=index+1
+    console.log(element.count)
+  })
+}
 
   // Lit render the HTML
   render() {
     return html`
 <div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
+  <h3>${this.title}</h3>
+      <div class="steps-items">
+        <slot id="step-slot"></slot>
+      </div>
 </div>`;
   }
-
   /**
    * haxProperties integration via file reference
    */
@@ -81,5 +100,4 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
       .href;
   }
 }
-
 globalThis.customElements.define(DddStepsList.tag, DddStepsList);
