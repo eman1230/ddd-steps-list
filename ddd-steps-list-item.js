@@ -81,6 +81,7 @@ export class DddStepsListItem extends DDDSuper(I18NMixin(LitElement)) {
           vertical-align: top;
           font-weight: 400;
           flex-wrap: nowrap;
+          z-index: 1;
       }
 
       h3 {
