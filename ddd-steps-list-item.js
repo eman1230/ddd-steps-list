@@ -23,6 +23,7 @@ export class DddStepsListItem extends DDDPulseEffectSuper(I18NMixin(DDD)) {
     this.title = "";
     this.body = "";
     this.count = 0;
+    this.noline = false;
     this.t = this.t || {};
     this.t = {
       ...this.t,
@@ -43,7 +44,8 @@ export class DddStepsListItem extends DDDPulseEffectSuper(I18NMixin(DDD)) {
       ...super.properties,
       title: { type: String },
       body: { type: String },
-      count: { type: Number }
+      count: { type: Number },
+      noline: { type: Boolean, reflect: true},
     };
   }
 
@@ -59,8 +61,8 @@ export class DddStepsListItem extends DDDPulseEffectSuper(I18NMixin(DDD)) {
       .wrapper {
         display: flex;
         flex-direction: column;
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
+        margin: 0 var(--ddd-spacing-2);
+        padding: 0 var(--ddd-spacing-4);
       }
 
       h3 span {
@@ -121,9 +123,14 @@ export class DddStepsListItem extends DDDPulseEffectSuper(I18NMixin(DDD)) {
         padding-left: 48px;
       }
 
-      .vl {
+      .vl  {
         margin-left: 23px;
         border-left: 2px dashed var(--ddd-theme-default-nittanyNavy);
+        height:100%;
+      }
+
+      :host([noline]) .v1 {
+        border-left: none;
       }
 
       @media screen and (max-width: 1280px) {
