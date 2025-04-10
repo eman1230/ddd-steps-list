@@ -109,33 +109,32 @@ export class DddStepsListItem extends DDDPulseEffectSuper(I18NMixin(DDD)) {
       }
 
       .content{
-        max-width: 480px;
+        max-width: 720px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
         margin-left: 46px;
       }
-
-      ::slotted(ddd-steps-list-item){
-        --myddd-test: #000140;
-        display: flex;
-      } 
 
       .text{
         padding-left: 48px;
       }
 
       .vl  {
+        display: inline-block;
         margin-left: 23px;
-        border-left: 2px dashed var(--ddd-theme-default-nittanyNavy);
+        border-left: 1.5px dashed var(--ddd-theme-default-nittanyNavy);
         height:100%;
       }
 
-      :host([noline]) .v1 {
+      :host([noline]) .vl {
         border-left: none;
       }
 
       @media screen and (max-width: 1280px) {
       .content {
-        max-width: 900px;
+        max-width: 1080px;
       }
       .count {
         width: 29px;

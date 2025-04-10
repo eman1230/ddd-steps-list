@@ -23,6 +23,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
     super();
     this.index=0
     this.title = "";
+    this.description = "";
     this.t = this.t || {};
     this.t = {
       ...this.t,
@@ -43,7 +44,7 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
       ...super.properties,
       title: { type: String },
       index: { type: Number },
-
+      description: { type: String },
     };
   }
 
@@ -58,12 +59,29 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
         font-family: var(--ddd-font-navigation);
       }
       .wrapper {
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
+        margin: 0 var(--ddd-spacing-2) auto;
+        padding: 0 var(--ddd-spacing-4);
+        margin-top: 0px;
+        padding-top: 0px;
       }
       h3 span {
         font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
       }
+      h2 {
+        color: var(--ddd-theme-primary)
+      }
+
+      .description {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 62px;
+        margin-top: 0px;
+        padding-top: 0px;
+        /* width: 560px; */
+        justify-content: center;
+        align-items: center;
+      }
+
     `];
   }
 
@@ -81,11 +99,31 @@ indexcount() {
   })
 }
 
+valdiateChildren() { 
+  const slot = this.shadowRoot.querySelector("#step-slot");
+  if (!slot){
+    console.error("Slot #step-slot not found in shadowRoot.");
+    return;
+  }
+  const assignedElements = slot.assignedElements({
+    flatten: true,
+  });
+  assignedElements.forEach((child) => {
+    if (child.tagName.toLowerCase() !== "ddd-steps-list-item") {
+      console.warn("Invalid Tag");
+      child.remove();
+    }
+  })
+}
+
   // Lit render the HTML
   render() {
     return html`
 <div class="wrapper">
+<div class='description'>
   <h3>${this.title}</h3>
+    ${this.description}
+    </div>
       <div class="steps-items">
         <slot id="step-slot"></slot>
       </div>
